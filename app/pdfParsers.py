@@ -12,12 +12,16 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 
-def parsePDFtoXML(filepath):
+def parsePDFPorto(filepath,OutType):
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
     codec = 'utf-8'
     laparams = LAParams()
-    device = HTMLConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+   
+    if (OutType=="HTML"):
+        device = HTMLConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    else:
+        device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     fp = file(filepath, 'rb')
     parser = PDFParser(fp)
@@ -31,3 +35,10 @@ def parsePDFtoXML(filepath):
     str = retstr.getvalue()
     retstr.close()
     return str.decode('utf-8')
+def parsePDFtoHTML(filepath):
+    
+    return parsePDFPorto(filepath, "HTML")
+
+def parsePDFtoText(filepath):
+    
+    return parsePDFPorto(filepath, "Text")
