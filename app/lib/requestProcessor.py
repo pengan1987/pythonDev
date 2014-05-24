@@ -26,8 +26,8 @@ def parseRequest(request,fileStream):
         resultText = pyPdfHelper.getPDFContent(fileStream)
         return render_template("result.html",result=resultText)
 
-def requestPDFX(filepath):
-    pdfdata = open(filepath, 'rb').read()
+def requestPDFX(fileStream):
+    pdfdata = fileStream.read()
     request = urllib2.Request('http://pdfx.cs.man.ac.uk', pdfdata, headers={'Content-Type' : 'application/pdf'})
     resultXML = urllib2.urlopen(request).read()
     return resultXML
