@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-  
 import os
-from flask import Flask, request, redirect, url_for
-from werkzeug.utils import secure_filename
+from flask import Flask,  redirect, url_for
 
-UPLOAD_FOLDER = 'C:\Users\PengAn\workspace\pythonDev\uploads'
-ALLOWED_EXTENSIONS = set(['pdf'])
+
+
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config.from_object('app.config')
+
 from app import views
